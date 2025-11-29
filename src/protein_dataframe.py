@@ -1,18 +1,12 @@
 import pandas as pd
-from enum import Enum
 
-from src.pandas_helper import PandasHelper as pdHelper
-from src.clusterized_dataframe import ClusterizedDataframe as clustDataframe
+from src.helpers.pandas_helper import PandasHelper as pdHelper
+from src.clusterized_dataframe import ClusterizedDataframe
 from src.enums.super_kingdom import SuperKingdom
-from src.enums.columns import Columns
+from src.enums.columns import PPC_Columns
+from src.enums.clusters import PPC_Clusters
 
-class ClusterEnum(Enum):
-    single_enzymes_clusters = 1
-    multiple_enzymes_clusters = 2
-    homologous_ec_clusters = 3
-    non_homologous_ec_clusters = 4
-
-class ProteinDataframe:
+class PPC_Dataframe:
     """
     A class to load, process, and analyze protein data from a .tsv file.
 
@@ -55,12 +49,15 @@ class ProteinDataframe:
         )
         
     def __initial_treatment(self):
-        self.__df[Columns.ECNumber] = pdHelper.transform_col_in_tuple(self.__df[Columns.ECNumber], ';')
-        self.__df[Columns.SuperFamily] = pdHelper.transform_col_in_tuple(self.__df[Columns.SuperFamily], ';')
-        self.__df[Columns.PDB] = pdHelper.transform_col_in_tuple(self.__df[Columns.PDB], ';')
+        self.__df[PPC_Columns.ECNumber] = pdHelper.transform_col_in_tuple(self.__df[PPC_Columns.ECNumber], ';')
+        self.__df[PPC_Columns.SuperFamily] = pdHelper.transform_col_in_tuple(self.__df[PPC_Columns.SuperFamily], ';')
+        self.__df[PPC_Columns.PDB] = pdHelper.transform_col_in_tuple(self.__df[PPC_Columns.PDB], ';')
         
-        self.__df[Columns.SuperKingdom] = self.__df[Columns.TaxonomicLineage].apply(self.__extract_superkingdom)
-        self.__df[Columns.IsECComplete] = self.__df[Columns.ECNumber].apply(self.__has_ec_complete)
+        self.__df[PPC_Columns.SuperKingdom] = self.__df[PPC_Columns.TaxonomicLineage].apply(self.__extract_superkingdom)
+        self.__df[PPC_Columns.IsECComplete] = self.__df[PPC_Columns.ECNumber].apply(self.__has_ec_complete)
+    
+    def to_csv(self, path: str):
+        self.__df.to_csv(path, sep='\t', encoding='utf-8', index=False, header=True)
     
     @property
     def cols(self):
@@ -68,138 +65,138 @@ class ProteinDataframe:
     
     @property
     def ec_complete(self):
-        filter = self.__df[Columns.IsECComplete]
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.IsECComplete]
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def no_ec(self):
-        filter = self.__df[Columns.ECNumber].str.len() < 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.ECNumber].str.len() < 1
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def has_ec(self):
-        filter = self.__df[Columns.ECNumber].str.len() > 0
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.ECNumber].str.len() > 0
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def has_ec(self):
-        filter = self.__df[Columns.PDB].str.len() > 0
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.PDB].str.len() > 0
+        return PPC_Dataframe(df = self.__df[filter])
         
     @property
     def not_promiscuous(self):
-        filter = self.__df[Columns.ECNumber].str.len() == 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.ECNumber].str.len() == 1
+        return PPC_Dataframe(df = self.__df[filter].explode(PPC_Columns.ECNumber))
     
     @property
     def promiscuos(self):
-        filter = self.__df[Columns.ECNumber].str.len() > 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.ECNumber].str.len() > 1
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def exploded_ec_clusters(self):
-        exploded_supfam = self.__df.explode(Columns.ECNumber)
+        exploded_supfam = self.__df.explode(PPC_Columns.ECNumber)
         
-        clusters_df = pdHelper.clusterize_col(exploded_supfam, Columns.ECNumber)
+        clusters_df = pdHelper.clusterize_col(exploded_supfam, PPC_Columns.ECNumber)
         
         return clusters_df
     
     @property
     def ec_clusters(self):
-        return pdHelper.clusterize_col(self.__df, Columns.ECNumber)
+        return pdHelper.clusterize_col(self.__df, PPC_Columns.ECNumber)
     
-    def get_cluster(self, prop: ClusterEnum):
+    def get_cluster(self, prop: PPC_Clusters):
         match prop:
-            case ClusterEnum.single_enzymes_clusters:
+            case PPC_Clusters.single_enzymes_clusters:
                 return self.single_enzymes_clusters
-            case ClusterEnum.multiple_enzymes_clusters:
+            case PPC_Clusters.multiple_enzymes_clusters:
                 return self.multiple_enzymes_clusters
-            case ClusterEnum.homologous_ec_clusters:
+            case PPC_Clusters.homologous_ec_clusters:
                 return self.homologous_ec_clusters
-            case ClusterEnum.non_homologous_ec_clusters:
+            case PPC_Clusters.non_homologous_ec_clusters:
                 return self.non_homologous_ec_clusters
     
     @property
     def single_enzymes_clusters(self):      
-        hise = self.__df.groupby(Columns.ECNumber).filter(
-            lambda group: group[Columns.Entry].nunique() == 1
+        hise = self.__df.groupby(PPC_Columns.ECNumber).filter(
+            lambda group: group[PPC_Columns.Entry].nunique() == 1
         )
         
-        return clustDataframe(hise)
+        return ClusterizedDataframe(hise)
     
     @property
     def multiple_enzymes_clusters(self):      
-        hise = self.__df.groupby(Columns.ECNumber).filter(
-            lambda group: group[Columns.Entry].nunique() > 1
+        hise = self.__df.groupby(PPC_Columns.ECNumber).filter(
+            lambda group: group[PPC_Columns.Entry].nunique() > 1
         )
         
-        return clustDataframe(hise)
+        return ClusterizedDataframe(hise)
     
     @property
     def homologous_ec_clusters(self):      
-        hise = self.__df.groupby(Columns.ECNumber).filter(
-            lambda group: group[Columns.SuperFamily].nunique() == 1
+        hise = self.__df.groupby(PPC_Columns.ECNumber).filter(
+            lambda group: group[PPC_Columns.SuperFamily].nunique() == 1
         )
         
-        return clustDataframe(hise)
+        return ClusterizedDataframe(hise)
     
     @property
     def non_homologous_ec_clusters(self):      
-        nise = self.__df.groupby(Columns.ECNumber).filter(
-            lambda group: group[Columns.SuperFamily].nunique() > 1
+        nise = self.__df.groupby(PPC_Columns.ECNumber).filter(
+            lambda group: group[PPC_Columns.SuperFamily].nunique() > 1
         )
         
-        return clustDataframe(nise)
+        return ClusterizedDataframe(nise)
     
     @property
     def ec_value_counts(self):
-        return self.__df[Columns.ECNumber].explode().value_counts()
+        return self.__df[PPC_Columns.ECNumber].explode().value_counts()
     
     @property
     def no_supfam(self):
-        filter = self.__df[Columns.SuperFamily].str.len() < 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.SuperFamily].str.len() < 1
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def has_supfam(self):
-        filter = self.__df[Columns.SuperFamily].str.len() > 0
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.SuperFamily].str.len() > 0
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def single_supfam(self):
-        filter = self.__df[Columns.SuperFamily].str.len() == 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.SuperFamily].str.len() == 1
+        return PPC_Dataframe(df = self.__df[filter].explode(PPC_Columns.SuperFamily))
     
     @property
     def multi_supfam(self):
-        filter = self.__df[Columns.SuperFamily].str.len() > 1
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.SuperFamily].str.len() > 1
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def exploded_supfam_clusters(self):
-        exploded_supfam = self.__df.explode(Columns.SuperFamily)
+        exploded_supfam = self.__df.explode(PPC_Columns.SuperFamily)
         
-        clusters_df = pdHelper.clusterize_col(exploded_supfam, Columns.SuperFamily)
+        clusters_df = pdHelper.clusterize_col(exploded_supfam, PPC_Columns.SuperFamily)
         
         return clusters_df
     
     @property
     def supfam_clusters(self):        
-        return pdHelper.clusterize_col(self.__df, Columns.SuperFamily)
+        return pdHelper.clusterize_col(self.__df, PPC_Columns.SuperFamily)
     
     @property
     def supfam_value_counts(self):
-        return self.__df[Columns.SuperFamily].explode().value_counts()
+        return self.__df[PPC_Columns.SuperFamily].explode().value_counts()
     
     @property
     def supkingdom_value_counts(self):
-        return self.__df[Columns.SuperKingdom].value_counts()
+        return self.__df[PPC_Columns.SuperKingdom].value_counts()
     
     
     @property
     def has_pdb(self):
-        filter = self.__df[Columns.PDB].str.len() > 0
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.PDB].str.len() > 0
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def bacteria(self):
@@ -246,13 +243,13 @@ class ProteinDataframe:
         return self.__ec_init_with('7')
     
     def __ec_init_with(self, ec_filter: str):
-        filter = self.__df[Columns.ECNumber].apply(lambda x: any(ec.startswith(ec_filter) for ec in x))
-        return ProteinDataframe(df = self.__df[filter])
+        filter = self.__df[PPC_Columns.ECNumber].apply(lambda x: any(ec.startswith(ec_filter) for ec in x))
+        return PPC_Dataframe(df = self.__df[filter])
     
     def __supkingdom_is(self, supkingdom: str):
-        superKingdomColumn: str = f'{Columns.SuperKingdom}'
+        superKingdomColumn: str = f'{PPC_Columns.SuperKingdom}'
         filter = self.__df[superKingdomColumn].fillna('').str.lower() == supkingdom.lower()
-        return ProteinDataframe(df = self.__df[filter])
+        return PPC_Dataframe(df = self.__df[filter])
     
     def __extract_superkingdom(self, lineage: str):
         if pd.isna(lineage):

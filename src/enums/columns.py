@@ -1,4 +1,4 @@
-class Columns:
+class PPC_Columns():
     Entry = 'Entry'
     EntryName = 'Entry Name'
     ECNumber = 'EC number'
@@ -14,8 +14,8 @@ class Columns:
     AlphaFoldDB = 'AlphaFold DB'
     TaxonomicLineage = 'Taxonomic lineage'
 
-class ClusterizedColumns:
+class PPC_ClusterizedColumns():
     SuperFamilyCount = 'SuperFamilyCount'
     ProteinCount = 'ProteinCount'
-    SuperFamily = Columns.SuperFamily
-    ProteinEntries = Columns.ProteinNames
+    SuperFamily = PPC_Columns.SuperFamily
+    ProteinEntries = PPC_Columns.ProteinNames

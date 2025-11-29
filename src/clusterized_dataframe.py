@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.enums.columns import Columns, ClusterizedColumns
+from src.enums.columns import PPC_Columns, PPC_ClusterizedColumns
 
 class ClusterizedDataframe:
     __df: pd.DataFrame
@@ -18,12 +18,15 @@ class ClusterizedDataframe:
         return repr(self.__df)
         
     def __initial_treatment(self, df: pd.DataFrame):
-        self.__df = df.groupby(Columns.ECNumber).agg(
-            SuperFamilyCount=(Columns.SuperFamily, 'nunique'),
-            ProteinCount=(Columns.Entry, 'nunique'),
-            SuperFamily=(Columns.SuperFamily, 'unique'),
-            ProteinEntries=(Columns.Entry, list),
+        self.__df = df.groupby(PPC_Columns.ECNumber).agg(
+            SuperFamilyCount=(PPC_Columns.SuperFamily, 'nunique'),
+            ProteinCount=(PPC_Columns.Entry, 'nunique'),
+            SuperFamily=(PPC_Columns.SuperFamily, 'unique'),
+            ProteinEntries=(PPC_Columns.Entry, list),
         ).reset_index()
+    
+    def to_csv(self, path: str):
+        self.__df.to_csv(path, sep='\t', encoding='utf-8', index=False, header=True)
     
     @property
     def cols(self):
@@ -31,7 +34,7 @@ class ClusterizedDataframe:
     
     @property
     def count_proteins(self):
-        return self.__df[ClusterizedColumns.ProteinCount].sum()
+        return self.__df[PPC_ClusterizedColumns.ProteinCount].sum()
     
     
     

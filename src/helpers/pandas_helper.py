@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.enums.columns import Columns
+from src.enums.columns import PPC_Columns
 
 class PandasHelper:
     @staticmethod
@@ -18,8 +18,8 @@ class PandasHelper:
     @staticmethod
     def clusterize_col(df: pd.DataFrame, col: str):
         clusters_df = df.groupby(col).agg(
-            ProteinEntries=(Columns.Entry, list),
-            MemberCount=(Columns.Entry, 'nunique')
+            ProteinEntries=(PPC_Columns.Entry, list),
+            MemberCount=(PPC_Columns.Entry, 'nunique')
         ).reset_index()
         return clusters_df
     
