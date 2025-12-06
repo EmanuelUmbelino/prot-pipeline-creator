@@ -23,10 +23,11 @@ class PandasHelper:
         ).reset_index()
         return clusters_df
     
-    def __str_to_clear_tuple(str: str, sep: str = None):
-        list = str.split(sep)
-        list.sort()
+    def __str_to_clear_tuple(str_val: str, sep: str = None):
+        if not str_val: return ()
+        list = str_val.split(sep)
         clean = [x.strip() for x in list]
-        filtered = filter(lambda x: x, clean)
+        filtered = [x for x in clean if x]
+        filtered.sort()
         return tuple(filtered)
     
