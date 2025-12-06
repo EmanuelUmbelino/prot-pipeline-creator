@@ -18,7 +18,7 @@ To run this project, you will need:
     
     Bash
     
-    ```
+    ```bash
     git clone https://github.com/emanuelumbelino/prot-pipeline-creator.git
     cd prot-pipeline-creator
     ```
@@ -27,7 +27,7 @@ To run this project, you will need:
     
     Bash
     
-    ```
+    ```bash
     pip install pandas
     ```
     
@@ -42,7 +42,7 @@ To run the default example included in the project, ensure you have a UniProt da
 
 Bash
 
-```
+```bash
 python main.py data/file/path.tsv
 ```
 
