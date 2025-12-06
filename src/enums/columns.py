@@ -17,5 +17,4 @@ class PPC_Columns():
 class PPC_ClusterizedColumns():
     SuperFamilyCount = 'SuperFamilyCount'
     ProteinCount = 'ProteinCount'
-    SuperFamily = PPC_Columns.SuperFamily
-    ProteinEntries = PPC_Columns.ProteinNames
+    Entries = 'Entries'

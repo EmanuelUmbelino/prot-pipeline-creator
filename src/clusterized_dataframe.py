@@ -18,12 +18,40 @@ class ClusterizedDataframe:
         return repr(self.__df)
         
     def __initial_treatment(self, df: pd.DataFrame):
-        self.__df = df.groupby(PPC_Columns.ECNumber).agg(
+        if df.empty:
+            self.__df = pd.DataFrame(columns=[
+                PPC_Columns.ECNumber, 
+                PPC_ClusterizedColumns.SuperFamilyCount, 
+                PPC_ClusterizedColumns.ProteinCount,
+                PPC_ClusterizedColumns.Entries
+            ])
+            return
+        
+        temp_df = df.copy()
+        
+        family_groups = temp_df.groupby([
+            PPC_Columns.ECNumber, PPC_Columns.SuperFamily
+        ])[PPC_Columns.Entry].apply(list).reset_index()
+
+        temp_df['Entry_With_SupFam'] = temp_df.apply(
+            lambda row: f"{row[PPC_Columns.Entry]} {str(row[PPC_Columns.SuperFamily])}", 
+            axis=1
+        )
+        
+        family_groups['FormattedFamily'] = family_groups.apply(
+            lambda row: f"{str(row[PPC_Columns.SuperFamily])}: {str(row[PPC_Columns.Entry])}", 
+            axis=1
+        )
+        
+        detailed_entries = family_groups.groupby(PPC_Columns.ECNumber)['FormattedFamily'].apply(list).reset_index()
+        detailed_entries.rename(columns={'FormattedFamily': PPC_ClusterizedColumns.Entries}, inplace=True)
+        
+        stats_df = temp_df.groupby(PPC_Columns.ECNumber).agg(
             SuperFamilyCount=(PPC_Columns.SuperFamily, 'nunique'),
             ProteinCount=(PPC_Columns.Entry, 'nunique'),
-            SuperFamily=(PPC_Columns.SuperFamily, 'unique'),
-            ProteinEntries=(PPC_Columns.Entry, list),
         ).reset_index()
+        
+        self.__df = pd.merge(stats_df, detailed_entries, on=PPC_Columns.ECNumber, how='left')
     
     def to_tsv(self, path: str):
         self.__df.to_csv(path, sep='\t', encoding='utf-8', index=False, header=True)
