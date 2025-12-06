@@ -29,7 +29,7 @@ class PPC_Dataframe:
         if file_path:
             self.__read_file(file_path)
         else:
-            self.__df = df
+            self.__df = df.copy()
 
         self.__initial_treatment()
     
