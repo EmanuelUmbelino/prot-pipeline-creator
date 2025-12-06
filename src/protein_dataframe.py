@@ -56,7 +56,7 @@ class PPC_Dataframe:
         self.__df[PPC_Columns.SuperKingdom] = self.__df[PPC_Columns.TaxonomicLineage].apply(self.__extract_superkingdom)
         self.__df[PPC_Columns.IsECComplete] = self.__df[PPC_Columns.ECNumber].apply(self.__has_ec_complete)
     
-    def to_csv(self, path: str):
+    def to_tsv(self, path: str):
         self.__df.to_csv(path, sep='\t', encoding='utf-8', index=False, header=True)
     
     @property
@@ -86,7 +86,7 @@ class PPC_Dataframe:
     @property
     def not_promiscuous(self):
         filter = self.__df[PPC_Columns.ECNumber].str.len() == 1
-        return PPC_Dataframe(df = self.__df[filter].explode(PPC_Columns.ECNumber))
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def promiscuos(self):
@@ -165,7 +165,7 @@ class PPC_Dataframe:
     @property
     def single_supfam(self):
         filter = self.__df[PPC_Columns.SuperFamily].str.len() == 1
-        return PPC_Dataframe(df = self.__df[filter].explode(PPC_Columns.SuperFamily))
+        return PPC_Dataframe(df = self.__df[filter])
     
     @property
     def multi_supfam(self):

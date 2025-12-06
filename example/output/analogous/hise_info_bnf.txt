@@ -1,0 +1,62 @@
+HISE.bnf
+EC Complete, not promiscuous, single supfam
+
+Clusterize by EC, in which all enzymes display one single SUPFAM
+annotation and share the same SUPFAM.
+
+                  EC 	 SEQ
+oxidoreductases   900 	 10751
+transferases      1078 	 48568
+hydrolases        610 	 15994
+lyases            330 	 12878
+isomerases        181 	 7388
+ligases           106 	 5558
+translocases      49 	 1514
+total             3254 	 102651
+
+
+BY SUPER KINGDOM
+
+ARCHAEA
+                  EC 	 SEQ
+oxidoreductases   59 	 358
+transferases      176 	 2113
+hydrolases        67 	 784
+lyases            59 	 649
+isomerases        34 	 399
+ligases           29 	 342
+translocases      8 	 52
+total             432 	 4697
+
+BACTERIA
+                  EC 	 SEQ
+oxidoreductases   528 	 7512
+transferases      683 	 43167
+hydrolases        368 	 11935
+lyases            254 	 11028
+isomerases        126 	 6503
+ligases           80 	 4728
+translocases      48 	 1457
+total             2087 	 86330
+
+EUKARYA
+                  EC 	 SEQ
+oxidoreductases   467 	 3383
+transferases      549 	 5635
+hydrolases        379 	 4994
+lyases            159 	 1534
+isomerases        91 	 830
+ligases           39 	 514
+translocases      8 	 37
+total             1692 	 16927
+
+VIRUSES
+                  EC 	 SEQ
+oxidoreductases   7 	 33
+transferases      26 	 366
+hydrolases        34 	 463
+lyases            1 	 1
+isomerases        3 	 4
+ligases           3 	 6
+translocases      0 	 0
+total             74 	 873

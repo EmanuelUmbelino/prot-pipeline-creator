@@ -25,7 +25,7 @@ class ClusterizedDataframe:
             ProteinEntries=(PPC_Columns.Entry, list),
         ).reset_index()
     
-    def to_csv(self, path: str):
+    def to_tsv(self, path: str):
         self.__df.to_csv(path, sep='\t', encoding='utf-8', index=False, header=True)
     
     @property

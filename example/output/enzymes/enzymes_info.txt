@@ -1,0 +1,12 @@
+Enzymes
+EC Complete, not promiscuous, single supfam
+
+                  EC 	 SEQ
+oxidoreductases   986 	 14055
+transferases      1152 	 59514
+hydrolases        718 	 27384
+lyases            365 	 16763
+isomerases        203 	 9404
+ligases           115 	 6393
+translocases      56 	 2097
+total             3595 	 135610

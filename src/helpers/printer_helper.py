@@ -37,6 +37,14 @@ class PPC_Printer():
         print()
         print(f"VIRUSES")
         f(df.viruses, *args)   
+
+    def print_by_kingdom(df: PPC_Dataframe):
+        print(f"            EC \t\t SEQ")
+        print(f"archaea     {len(df.archaea.ec_value_counts)} \t {len(df.archaea)}")
+        print(f"bacteria    {len(df.bacteria.ec_value_counts)} \t {len(df.bacteria)}")
+        print(f"eukaryota   {len(df.eukaryota.ec_value_counts)} \t {len(df.eukaryota)}")
+        print(f"viruses     {len(df.viruses.ec_value_counts)} \t\t {len(df.viruses)}")
+        print(f"total       {len(df.ec_value_counts)} \t {len(df)}")
     
     def print_cluster_by_ec_class(df: PPC_Dataframe, prop: PPC_Clusters):
         oxidoreductases = df.oxidoreductases.get_cluster(prop)

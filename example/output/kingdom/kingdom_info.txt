@@ -1,0 +1,9 @@
+Enzymes by Superkingdom
+EC Complete, not promiscuous, single supfam
+
+            EC 		 SEQ
+archaea     472 	 5711
+bacteria    2265 	 104109
+eukaryota   1808 	 24723
+viruses     83 		 1063
+total       3595 	 135610
