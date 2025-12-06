@@ -1,6 +1,7 @@
 # PPC - Prot Pipeline Creator
 
 **PPC - Prot Pipeline Creator** is a Python-based tool designed for the bioinformatics processing and analysis of protein data. 
+
 The system is engineered to ingest `.tsv` files from UniProt (UniProtKB), enabling the creation of automated analysis pipelines for filtering, clustering, and generating sub-datasets based on taxonomy (Super Kingdoms), enzymatic activity (EC numbers) and others.    
 
 ## 🛠️ Prerequisites
