@@ -6,8 +6,7 @@ from example.kingdom_pipeline import KingdomPipeline
 
 class Example():
     
-    def run_example():
-        file_path = 'example/uniprotkb_reviewed_true_2025_11_29.tsv'
+    def run_example(file_path: str):
         print(f'Example - Starting')
         try:
             print(f"Example - Loading Dataframe from: {file_path}")
