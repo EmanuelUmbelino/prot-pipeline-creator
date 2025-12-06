@@ -77,11 +77,6 @@ class PPC_Dataframe:
     def has_ec(self):
         filter = self.__df[PPC_Columns.ECNumber].str.len() > 0
         return PPC_Dataframe(df = self.__df[filter])
-    
-    @property
-    def has_ec(self):
-        filter = self.__df[PPC_Columns.PDB].str.len() > 0
-        return PPC_Dataframe(df = self.__df[filter])
         
     @property
     def not_promiscuous(self):
