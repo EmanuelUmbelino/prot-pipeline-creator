@@ -1,4 +1,4 @@
-from example.example_pipeline import ExamplePipeline
+from example.example import Example
 
 
-ExamplePipeline.run_example()
+Example.run_example()

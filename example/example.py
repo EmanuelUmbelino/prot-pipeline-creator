@@ -4,15 +4,15 @@ from example.analogous_pipeline import AnalogousPipeline
 from example.enzymes_pipeline import EnzymesPipeline
 from example.kingdom_pipeline import KingdomPipeline
 
-class ExamplePipeline():
+class Example():
     
     def run_example():
         file_path = 'example/uniprotkb_reviewed_true_2025_11_29.tsv'
-        print(f'Example Pipeline - Starting')
+        print(f'Example - Starting')
         try:
-            print(f"Example Pipeline - Loading Dataframe from: {file_path}")
+            print(f"Example - Loading Dataframe from: {file_path}")
             df = PPC_Dataframe(file_path)
-            print(f"Example Pipeline - Dataframe loaded successfully.")
+            print(f"Example - Dataframe loaded successfully.")
             
             print()
             AnalogousPipeline.research(df, 'example/output/analogous')
@@ -23,7 +23,7 @@ class ExamplePipeline():
             print()
             
             print()
-            print(f"Example Pipeline - Concluded successfully.")
+            print(f"Example - Concluded successfully.")
             
         except FileNotFoundError:
-            print(f"Analysis Error: The file was not found.")
+            print(f"Example Error: The file was not found.")
