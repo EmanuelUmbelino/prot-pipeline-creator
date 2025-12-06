@@ -13,4 +13,5 @@ def main(file_path: str | None):
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1]:
         main(sys.argv[1])
-    main(None)
+    else:
+        main(None)

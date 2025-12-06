@@ -18,6 +18,9 @@ class PPC_Printer():
         except FileNotFoundError:
             sys.stdout = original_stdout
             print(f"Error: The file ({path}) was not found.")
+        except Exception as e:
+            sys.stdout = original_stdout
+            raise e
             
         sys.stdout = original_stdout
         
