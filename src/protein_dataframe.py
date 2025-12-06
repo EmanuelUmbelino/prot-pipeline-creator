@@ -28,9 +28,10 @@ class PPC_Dataframe:
         """
         if file_path:
             self.__read_file(file_path)
-            self.__initial_treatment()
         else:
             self.__df = df
+
+        self.__initial_treatment()
     
     def __len__(self):
         return len(self.__df)
