@@ -11,8 +11,6 @@ class TestPandasHelper(unittest.TestCase):
         }
         df = pd.DataFrame(data)
 
-        # Execution
-        # Note: transform_col_in_tuple modifies the DF inplace AND returns the series
         result = PandasHelper.transform_col_in_tuple(df['col1'], ';')
 
         # Assertions
