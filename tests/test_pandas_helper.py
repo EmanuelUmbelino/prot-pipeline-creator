@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from src.helpers.pandas_helper import PandasHelper
+from ppc.helpers.pandas_helper import PandasHelper
 
 class TestPandasHelper(unittest.TestCase):
 

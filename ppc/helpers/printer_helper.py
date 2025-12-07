@@ -1,7 +1,7 @@
 import sys
 
-from src.protein_dataframe import PPC_Dataframe
-from src.enums.clusters import PPC_Clusters
+from ppc.protein_dataframe import PPC_Dataframe
+from ppc.enums.clusters import PPC_Clusters
 
 class PPC_Printer():
     

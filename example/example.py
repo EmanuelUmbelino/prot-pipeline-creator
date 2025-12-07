@@ -1,5 +1,5 @@
 
-from src.protein_dataframe import PPC_Dataframe
+from ppc.protein_dataframe import PPC_Dataframe
 from example.analogous_pipeline import AnalogousPipeline
 from example.enzymes_pipeline import EnzymesPipeline
 from example.kingdom_pipeline import KingdomPipeline

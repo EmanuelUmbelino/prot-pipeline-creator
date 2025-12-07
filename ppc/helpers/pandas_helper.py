@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.enums.columns import PPC_Columns
+from ppc.enums.columns import PPC_Columns
 
 class PandasHelper:
     @staticmethod

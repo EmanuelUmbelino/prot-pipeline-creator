@@ -1,8 +1,8 @@
 import unittest
 import pandas as pd
-from src.protein_dataframe import PPC_Dataframe
-from src.enums.columns import PPC_Columns
-from src.enums.super_kingdom import SuperKingdom
+from ppc.protein_dataframe import PPC_Dataframe
+from ppc.enums.columns import PPC_Columns
+from ppc.enums.super_kingdom import SuperKingdom
 
 class TestPPCDataframe(unittest.TestCase):
 

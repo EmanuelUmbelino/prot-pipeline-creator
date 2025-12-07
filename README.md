@@ -52,8 +52,8 @@ python main.py data/file/path.tsv
 You can use the `PPC_Dataframe` class directly in your Python scripts:
 
 ```py
-from src.protein_dataframe import PPC_Dataframe
-from src.helpers.printer_helper import PPC_Printer
+from ppc.protein_dataframe import PPC_Dataframe
+from ppc.helpers.printer_helper import PPC_Printer
 
 # 1. Load the DataFrame
 file_path = 'path/to/your/uniprot_file.tsv'

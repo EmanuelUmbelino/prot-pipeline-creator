@@ -1,10 +1,10 @@
 import pandas as pd
 
-from src.helpers.pandas_helper import PandasHelper as pdHelper
-from src.clusterized_dataframe import ClusterizedDataframe
-from src.enums.super_kingdom import SuperKingdom
-from src.enums.columns import PPC_Columns
-from src.enums.clusters import PPC_Clusters
+from ppc.helpers.pandas_helper import PandasHelper as pdHelper
+from ppc.clusterized_dataframe import ClusterizedDataframe
+from ppc.enums.super_kingdom import SuperKingdom
+from ppc.enums.columns import PPC_Columns
+from ppc.enums.clusters import PPC_Clusters
 
 class PPC_Dataframe:
     """

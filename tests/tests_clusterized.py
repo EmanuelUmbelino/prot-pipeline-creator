@@ -2,8 +2,8 @@ import unittest
 import pandas as pd
 import json
 
-from src.clusterized_dataframe import ClusterizedDataframe
-from src.enums.columns import PPC_Columns, PPC_ClusterizedColumns
+from ppc.clusterized_dataframe import ClusterizedDataframe
+from ppc.enums.columns import PPC_Columns, PPC_ClusterizedColumns
 
 class TestClusterizedDataframe(unittest.TestCase):
 

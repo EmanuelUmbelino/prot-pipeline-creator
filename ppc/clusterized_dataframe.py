@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-from src.enums.columns import PPC_Columns, PPC_ClusterizedColumns
+from ppc.enums.columns import PPC_Columns, PPC_ClusterizedColumns
 
 class ClusterizedDataframe:
     __df: pd.DataFrame

@@ -1,5 +1,5 @@
-from src.protein_dataframe import PPC_Dataframe
-from src.helpers.printer_helper import PPC_Printer
+from ppc.protein_dataframe import PPC_Dataframe
+from ppc.helpers.printer_helper import PPC_Printer
 
 class EnzymesPipeline():
     def research(df: PPC_Dataframe, path: str):
