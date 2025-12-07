@@ -15,22 +15,10 @@ To run this project, you will need:
 
 ## 🚀 Installation
 
-1.  Clone the repository:
-    
-    Bash
-    
-    ```bash
-    git clone https://github.com/emanuelumbelino/prot-pipeline-creator.git
-    cd prot-pipeline-creator
-    ```
-    
-2.  Install dependencies (using a virtual environment is recommended):
-    
-    Bash
-    
-    ```bash
-    pip install pandas
-    ```
+
+```bash
+pip install prot-pipeline-creator
+```
     
 
 ## 💻 Usage
@@ -41,8 +29,6 @@ The project uses the concept of "Pipelines" to execute analyses. You can create 
 
 To run the default example included in the project, ensure you have a UniProt data file in the correct format and run:
 
-Bash
-
 ```bash
 python main.py data/file/path.tsv
 ```
@@ -52,8 +38,7 @@ python main.py data/file/path.tsv
 You can use the `PPC_Dataframe` class directly in your Python scripts:
 
 ```py
-from ppc.protein_dataframe import PPC_Dataframe
-from ppc.helpers.printer_helper import PPC_Printer
+from ppc import PPC_Dataframe, PPC_Printer
 
 # 1. Load the DataFrame
 file_path = 'path/to/your/uniprot_file.tsv'
