@@ -104,7 +104,7 @@ The project is organized as follows:
 
 ```
 prot-pipeline-creator/
-├── src/                     # Core source code
+├── ppc/                     # Core source code
 │   ├── enums/               # Enumerations for Kingdoms, Columns, and Clusters
 │   ├── helpers/             # Helpers for Pandas and Printing
 │   ├── clusterized_dataframe.py
