@@ -108,6 +108,6 @@ prot-pipeline-creator/
 
 ## 📄 License
 
-This project is licensed under the **Apache License 2.0**. See the [LICENSE](https://www.google.com/search?q=LICENSE](https://github.com/EmanuelUmbelino/prot-pipeline-creator/blob/main/LICENSE)) file for more details.
+This project is licensed under the **Apache License 2.0**. See the [LICENSE](https://github.com/EmanuelUmbelino/prot-pipeline-creator/blob/main/LICENSE) file for more details.
 
 Copyright 2025 - Emanuel Umbelino
